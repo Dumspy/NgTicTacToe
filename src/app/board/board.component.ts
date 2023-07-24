@@ -44,7 +44,7 @@ export class BoardComponent implements OnInit {
 
     newGame() {
         this.board = Array(9).fill(null)
-        this.winner= false
+        this.winner = false
     }
 
     onClick(index: number) {
