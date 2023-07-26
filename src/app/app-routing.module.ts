@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HistoryComponent } from './history/history.component';
 import { GameComponent } from './game/game.component';
+import { GameHistoryComponent } from './game-history/game-history.component';
+import { HistoryOverviewComponent } from './history-overview/history-overview.component';
 
 const routes: Routes = [
     {
@@ -10,8 +11,13 @@ const routes: Routes = [
         title: 'TicTacToe'
     },
     {
-        path: 'game/:id',
-        component: HistoryComponent,
+        path:'history',
+        component: HistoryOverviewComponent,
+        title: 'Game History Overview'
+    },
+    {
+        path: 'history/game/:id',
+        component: GameHistoryComponent,
         title: 'Game History'
     }
 ];
