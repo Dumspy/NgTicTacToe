@@ -1,9 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BoardComponent } from "../board/board.component";
 import { CellValue } from 'src/types/cell-value';
 import { animate, style, transition, trigger } from '@angular/animations';
 import { gameHistory } from 'src/types/game-history';
+import { GameHistoryService } from '../game-history.service';
+import { RouterModule } from '@angular/router';
 
 @Component({
     animations: [
@@ -22,10 +24,12 @@ import { gameHistory } from 'src/types/game-history';
     standalone: true,
     templateUrl: './game.component.html',
     styles: [],
-    imports: [CommonModule, BoardComponent]
+    imports: [CommonModule, BoardComponent, RouterModule]
 })
 export class GameComponent {
-    gameHistory: gameHistory = []
+    gameHistoryService: GameHistoryService = inject(GameHistoryService)
+
+    currentGameHistory: gameHistory = []
     xIsNext = true
     winner = false
 
@@ -34,7 +38,7 @@ export class GameComponent {
     }
 
     get board(): CellValue[] {
-        return [...this.gameHistory[this.gameHistory.length-1].currentGameState]
+        return [...this.currentGameHistory[this.currentGameHistory.length-1].currentGameState]
     }
 
     ngOnInit(): void {
@@ -42,9 +46,12 @@ export class GameComponent {
     }
 
     newGame() {
-        this.gameHistory = []
+        if(this.currentGameHistory.length>1){
+            this.gameHistoryService.addGame(this.currentGameHistory)
+        }
+        this.currentGameHistory = []
         this.winner = false
-        this.gameHistory.push({
+        this.currentGameHistory.push({
             currentGameState: Array(9).fill(null),
             winner: this.winner
         })
@@ -57,7 +64,7 @@ export class GameComponent {
         board[index] = this.player
 
         this.winner = this.checkForWinner(board)
-        this.gameHistory.push({
+        this.currentGameHistory.push({
             currentPlayer: this.player,
             currentGameState: board,
             winner: this.winner
@@ -68,7 +75,7 @@ export class GameComponent {
     }
 
     checkForWinner(gameState: CellValue[]) {
-        if (this.gameHistory.length < 5) { return false }
+        if (this.currentGameHistory.length < 5) { return false }
 
         const winningCombinations = [
             [0, 1, 2], [3, 4, 5], [6, 7, 8], // Rows

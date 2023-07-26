@@ -1,1 +1,8 @@
 <p>history-overview works!</p>
+<a routerLink="/">Return to game</a>
+<div *ngFor="let game of gameHistory">
+    <p>GAME</p>
+    <div *ngFor="let move of game">
+        <p>{{move.currentPlayer}}</p>
+    </div>
+</div>
