@@ -8,7 +8,7 @@ describe('CellComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [CellComponent]
+      imports: [CellComponent]
     });
     fixture = TestBed.createComponent(CellComponent);
     component = fixture.componentInstance;
