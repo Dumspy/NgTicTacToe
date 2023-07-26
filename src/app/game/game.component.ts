@@ -37,16 +37,6 @@ export class GameComponent {
         return [...this.gameHistory[this.gameHistory.length-1].currentGameState]
     }
 
-    get currentMove(): number {
-        return this.board.reduce((prev, current) => {
-            if (current != null) {
-                prev++
-            }
-
-            return prev
-        }, 0)
-    }
-
     ngOnInit(): void {
         this.newGame()
     }
@@ -66,7 +56,7 @@ export class GameComponent {
         const board = this.board
         board[index] = this.player
 
-        this.winner = this.checkForWinner()
+        this.winner = this.checkForWinner(board)
         this.gameHistory.push({
             currentPlayer: this.player,
             currentGameState: board,
@@ -77,20 +67,22 @@ export class GameComponent {
             this.xIsNext = !this.xIsNext
     }
 
-    checkForWinner() {
-        const currentMove = this.currentMove // TODO After checking for a winner if current move is 9 then run logic for game end on tie
-        if (currentMove < 5) { return false }
+    checkForWinner(gameState: CellValue[]) {
+        if (this.gameHistory.length < 5) { return false }
+
         const winningCombinations = [
             [0, 1, 2], [3, 4, 5], [6, 7, 8], // Rows
             [0, 3, 6], [1, 4, 7], [2, 5, 8], // Collums
             [0, 4, 8], [2, 4, 6] // Cross
         ]
+
         for (const winningCombination of winningCombinations) {
             const [a, b, c] = winningCombination
-            if (this.board[a] && this.board[a] === this.board[b] && this.board[a] === this.board[c]) {
+            if (gameState[a] && gameState[a] === gameState[b] && gameState[a] === gameState[c]) {
                 return true
             }
         }
+
         return false
     }
 }
