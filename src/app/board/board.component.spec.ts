@@ -10,8 +10,8 @@ describe('BoardComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [BoardComponent, CellComponent],
-      imports: [BrowserAnimationsModule]
+      declarations: [],
+      imports: [BrowserAnimationsModule, BoardComponent, CellComponent]
     });
     fixture = TestBed.createComponent(BoardComponent);
     component = fixture.componentInstance;
