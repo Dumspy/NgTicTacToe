@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { BoardComponent } from "../board/board.component";
 import { CellValue } from 'src/types/cell-value';
 import { animate, style, transition, trigger } from '@angular/animations';
+import { gameHistory } from 'src/types/game-history';
 
 @Component({
     animations: [
@@ -24,7 +25,7 @@ import { animate, style, transition, trigger } from '@angular/animations';
     imports: [CommonModule, BoardComponent]
 })
 export class GameComponent {
-    board: CellValue[] = []
+    gameHistory: gameHistory = []
     xIsNext = true
     winner = false
 
@@ -32,25 +33,53 @@ export class GameComponent {
         return this.xIsNext ? 'X' : 'O'
     }
 
+    get board(): CellValue[] {
+        return [...this.gameHistory[this.gameHistory.length-1].currentGameState]
+    }
+
+    get currentMove(): number {
+        return this.board.reduce((prev, current) => {
+            if (current != null) {
+                prev++
+            }
+
+            return prev
+        }, 0)
+    }
+
     ngOnInit(): void {
         this.newGame()
     }
 
     newGame() {
-        this.board = Array(9).fill(null)
+        this.gameHistory = []
         this.winner = false
+        this.gameHistory.push({
+            currentGameState: Array(9).fill(null),
+            winner: this.winner
+        })
     }
 
     onClick(index: number) {
         if (this.board[index] || this.winner) return
-        this.board[index] = this.player
+
+        const board = this.board
+        board[index] = this.player
+
         this.winner = this.checkForWinner()
-        if (this.winner) return
-        this.xIsNext = !this.xIsNext
+        this.gameHistory.push({
+            currentPlayer: this.player,
+            currentGameState: board,
+            winner: this.winner
+        })
+
+        if (!this.winner)
+            this.xIsNext = !this.xIsNext
     }
 
     checkForWinner() {
-        if (this.board.reduce((prev, current) => { if (current != null) { prev++ } return prev }, 0) < 5) { return false }
+        const currentMove = this.currentMove // TODO After checking for a winner if current move is 9 then run logic for game end on tie
+        if (currentMove < 5) { return false }
         const winningCombinations = [
             [0, 1, 2], [3, 4, 5], [6, 7, 8], // Rows
             [0, 3, 6], [1, 4, 7], [2, 5, 8], // Collums
