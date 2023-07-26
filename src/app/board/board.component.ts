@@ -1,32 +1,27 @@
 import { Component, OnInit } from '@angular/core';
 import { CellValue } from '../cell-value';
 import { animate, style, transition, trigger } from '@angular/animations';
+import { CellComponent } from "../cell/cell.component";
+import { NgForOf, NgIf } from '@angular/common';
 
 @Component({
     animations: [
-        trigger(
-            'inOutAnimation',
-            [
-              transition(
-                ':enter',
-                [
-                  style({ opacity: 0 }),
-                  animate('2s ease-out', style({ opacity: 1 }))
-                ]
-              ),
-              transition(
-                ':leave',
-                [
-                  style({ opacity: 1 }),
-                  animate('1s ease-in', style({ opacity: 0 }))
-                ]
-              )
-            ]
-          )
+        trigger('inOutAnimation', [
+            transition(':enter', [
+                style({ opacity: 0 }),
+                animate('2s ease-out', style({ opacity: 1 }))
+            ]),
+            transition(':leave', [
+                style({ opacity: 1 }),
+                animate('1s ease-in', style({ opacity: 0 }))
+            ])
+        ])
     ],
+    standalone: true,
     selector: 'app-board',
     templateUrl: './board.component.html',
-    styleUrls: ['./board.component.css']
+    styles: [],
+    imports: [CellComponent, NgIf, NgForOf]
 })
 
 export class BoardComponent implements OnInit {

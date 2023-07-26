@@ -11,7 +11,6 @@ import { CellComponent } from "./cell/cell.component";
 @NgModule({
     declarations: [
         AppComponent,
-        BoardComponent,
     ],
     providers: [],
     bootstrap: [AppComponent],
@@ -19,6 +18,7 @@ import { CellComponent } from "./cell/cell.component";
         BrowserModule,
         AppRoutingModule,
         BrowserAnimationsModule,
+        BoardComponent,
         CellComponent
     ]
 })
