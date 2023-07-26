@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CellValue } from '../cell-value';
+import { CellValue } from 'src/types/cell-value';
 
 @Component({
   selector: 'app-cell',
