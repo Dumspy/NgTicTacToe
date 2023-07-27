@@ -21,7 +21,7 @@ export class GameHistoryComponent {
 
     @Input()
     set id(id: number){
-        this.gameHistory = this.gameHistoryService.getGameByIndex(0)
+        this.gameHistory = this.gameHistoryService.getGameByIndex(id)
     }
 
     NextMove(){
