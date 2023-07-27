@@ -18,12 +18,12 @@ const routes: Routes = [
     {
         path: 'history/game/:id',
         component: GameHistoryComponent,
-        title: 'Game History'
+        title: 'Game History',
     }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, {bindToComponentInputs: true})],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

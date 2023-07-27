@@ -3,6 +3,6 @@
     <article *ngFor="let game of gameHistory; let i = index" class="shadow-md border p-2">
         <p>Game: {{i}}</p>
         <p *ngIf="game[game.length-1].winner">Winner: {{game[game.length-1].currentPlayer}}</p>
-        <button (click)="consoleClick(game)">log</button>
+        <button routerLink="/history/game/{{i}}" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 border border-slate-300 rounded-md shadow-lg text-slate-800">Game replay</button><br>
     </article>
 </div>
