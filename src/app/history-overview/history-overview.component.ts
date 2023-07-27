@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { GameHistoryService } from '../game-history.service';
-import { gameHistory } from 'src/types/game-history';
+import type { gameHistory } from 'src/types/game-history';
 import { RouterModule } from '@angular/router';
 
 @Component({
@@ -18,5 +18,9 @@ export class HistoryOverviewComponent {
 
     constructor(){
         this.gameHistory = this.gameHistoryService.getAllPreviousGames()
+    }
+
+    consoleClick(string:  any){
+        console.log(string)
     }
 }

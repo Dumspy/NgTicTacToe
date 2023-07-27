@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter} from '@angular/core';
-import { CellValue } from 'src/types/cell-value';
+import type { cellValue } from 'src/types/cell-value';
 import { animate, style, transition, trigger } from '@angular/animations';
 import { CellComponent } from "../cell/cell.component";
 import { NgForOf, NgIf } from '@angular/common';
@@ -25,7 +25,7 @@ import { NgForOf, NgIf } from '@angular/common';
 })
 
 export class BoardComponent {
-    @Input() gameState!: CellValue[]
+    @Input() gameState!: cellValue[]
     @Output() onClick = new EventEmitter<number>()
 
     constructor(){

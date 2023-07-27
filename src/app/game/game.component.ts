@@ -1,11 +1,11 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BoardComponent } from "../board/board.component";
-import { CellValue } from 'src/types/cell-value';
 import { animate, style, transition, trigger } from '@angular/animations';
-import { gameHistory } from 'src/types/game-history';
 import { GameHistoryService } from '../game-history.service';
 import { RouterModule } from '@angular/router';
+import type { gameHistory } from 'src/types/game-history';
+import type { cellValue } from 'src/types/cell-value';
 
 @Component({
     animations: [
@@ -33,11 +33,11 @@ export class GameComponent {
     xIsNext = true
     winner = false
 
-    get player(): CellValue {
+    get player(): cellValue {
         return this.xIsNext ? 'X' : 'O'
     }
 
-    get board(): CellValue[] {
+    get board(): cellValue[] {
         return [...this.currentGameHistory[this.currentGameHistory.length-1].currentGameState]
     }
 
@@ -46,8 +46,8 @@ export class GameComponent {
     }
 
     newGame() {
-        if(this.currentGameHistory.length>1){
-            this.gameHistoryService.addGame(this.currentGameHistory)
+        if(this.currentGameHistory.length>1 && !this.winner){
+            this.gameHistoryService.addGame(this.currentGameHistory, 'Restarted by player')
         }
         this.currentGameHistory = []
         this.winner = false
@@ -74,7 +74,7 @@ export class GameComponent {
             this.xIsNext = !this.xIsNext
     }
 
-    checkForWinner(gameState: CellValue[]) {
+    checkForWinner(gameState: cellValue[]) {
         if (this.currentGameHistory.length < 5) { return false }
 
         const winningCombinations = [
@@ -86,6 +86,7 @@ export class GameComponent {
         for (const winningCombination of winningCombinations) {
             const [a, b, c] = winningCombination
             if (gameState[a] && gameState[a] === gameState[b] && gameState[a] === gameState[c]) {
+                this.gameHistoryService.addGame(this.currentGameHistory, 'game ended player won')
                 return true
             }
         }

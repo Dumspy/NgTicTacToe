@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { gameHistory } from 'src/types/game-history';
+import type { gameHistory } from 'src/types/game-history';
 
 @Injectable({
     providedIn: 'root'
@@ -9,13 +9,15 @@ export class GameHistoryService {
     protected previousGames: gameHistory[]  = []
     constructor() { }
 
-    getGameByIndex(id: number) { }
+    getGameByIndex(id: number) {
+        return this.previousGames[id] ?? undefined
+    }
 
     getAllPreviousGames(){
         return this.previousGames
     }
 
-    addGame(game: gameHistory){
+    addGame(game: gameHistory, reason: string){
         this.previousGames.push(game)
     }
 }
