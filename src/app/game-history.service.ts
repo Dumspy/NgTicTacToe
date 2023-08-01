@@ -9,7 +9,7 @@ export class GameHistoryService {
     protected previousGames: gameHistory[]  = []
     constructor() { }
 
-    getGameByIndex(id: number) {
+    getGameByIndex(id: number): gameHistory | undefined{
         return this.previousGames[id] ?? undefined
     }
 

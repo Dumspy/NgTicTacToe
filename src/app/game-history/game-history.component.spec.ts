@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { GameHistoryComponent } from './game-history.component';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('GameHistoryComponent', () => {
   let component: GameHistoryComponent;
@@ -8,7 +9,7 @@ describe('GameHistoryComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [GameHistoryComponent]
+      imports: [GameHistoryComponent,RouterTestingModule]
     });
     fixture = TestBed.createComponent(GameHistoryComponent);
     component = fixture.componentInstance;

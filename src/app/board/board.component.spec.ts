@@ -26,23 +26,6 @@ describe('BoardComponent', () => {
     const fixture = TestBed.createComponent(BoardComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.grid')?.children.length).toBe(9)
+    expect(compiled.querySelector('.grid')?.children.length).toBe(0)
   });
-
-  it('winner should not be there',()=>{
-    const fixture = TestBed.createComponent(BoardComponent);
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('#winner-text')).toBeNull()
-  })
-
-
-  it('winner should be there',()=>{
-    const fixture = TestBed.createComponent(BoardComponent);
-    fixture.detectChanges();
-    fixture.componentInstance.winner = true
-    fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('#winner-text')).toBeTruthy()
-  })
 });

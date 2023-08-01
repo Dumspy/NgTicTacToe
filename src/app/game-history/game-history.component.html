@@ -1,9 +1,11 @@
-<app-board [gameState]="gameHistory[currentMove].currentGameState"></app-board>
+<div *ngIf="gameHistory.length>0">
+    <app-board [gameState]="gameHistory[currentMove].currentGameState"></app-board>
 
-<div class="flex justify-between items-center">
-    <button type="button" (click)="PreviousMove()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 border border-slate-300 rounded-md shadow-lg text-slate-800">Previous move</button>
-    <p>Move {{currentMove}} of {{gameHistory.length-1}}</p>
-    <button type="button" (click)="NextMove()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 border border-slate-300 rounded-md shadow-lg text-slate-800">Next move</button>
+    <div class="flex justify-between items-center">
+        <button type="button" (click)="PreviousMove()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 border border-slate-300 rounded-md shadow-lg text-slate-800">Previous move</button>
+        <p>Move {{currentMove}} of {{gameHistory.length-1}}</p>
+        <button type="button" (click)="NextMove()" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 border border-slate-300 rounded-md shadow-lg text-slate-800">Next move</button>
+    </div>
 </div>
 
 <button routerLink="/history" class="px-4 py-2 bg-slate-100 hover:bg-slate-200 border border-slate-300 rounded-md shadow-lg text-slate-800">Go back</button>
